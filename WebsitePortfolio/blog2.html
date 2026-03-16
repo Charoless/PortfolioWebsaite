@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JavaScript Performance Secrets | Charles Antonio Blog</title>
+  <meta name="description" content="Deep-dive into bundle optimization, lazy loading, memory management, and rendering performance techniques that make your web apps blazing fast." />
+  <meta name="keywords" content="JavaScript performance, web performance, bundle optimization, lazy loading, rendering, front-end optimization" />
+  <meta property="og:title" content="JavaScript Performance Secrets Every Front-End Dev Should Know | Charles Antonio" />
+  <meta property="og:description" content="Make your web apps blazing fast with these JS performance techniques." />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="images/blog2.jpg" />
+  <link rel="icon" href="images/logo.png" type="image/jpeg" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<!-- Reading Progress Bar -->
+<div class="reading-progress" role="progressbar" aria-label="Reading progress" aria-valuemin="0" aria-valuemax="100"></div>
+
+<header id="navbar" role="banner">
+  <div class="container nav-inner">
+    <a href="index.html" class="nav-logo" aria-label="Charles Antonio Home">
+      <img src="images/logo.png" alt="Charles Antonio Logo" />
+      <span class="nav-logo-text">Charles Antonio</span>
+    </a>
+    <nav aria-label="Main navigation">
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="blog.html" class="active">Blog</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="nav-actions">
+      <button class="theme-toggle" aria-label="Toggle dark/light mode">
+        <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path stroke-linecap="round" d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+      <a href="contact.html" class="btn btn-primary">Hire Me</a>
+      <button class="hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<nav class="mobile-nav" aria-label="Mobile navigation">
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="projects.html">Projects</a>
+  <a href="blog.html">Blog</a>
+  <a href="contact.html">Contact</a>
+</nav>
+
+<main id="main">
+
+<!-- Blog Hero -->
+<div class="blog-hero reveal">
+  <div class="container">
+    <div class="img-placeholder blog-hero-img" style="background:linear-gradient(135deg,#1a1a0a 0%,#2a2a10 50%,#1a1800 100%);font-size:6rem;" aria-hidden="true" role="img" aria-label="JavaScript performance blog header"><img src="images/js.png
+      "></div>
+    <div class="blog-meta" aria-label="Article metadata">
+      <span class="tag">JavaScript</span>
+      <span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+        Charles Antonio
+      </span>
+      <span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        February 3, 2025
+      </span>
+      <span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        10 min read
+      </span>
+    </div>
+    <h1 class="blog-title">JavaScript Performance Secrets Every Front-End Dev Should Know</h1>
+  </div>
+</div>
+
+<!-- Article Content -->
+<article class="blog-article reveal">
+
+  <p>Web performance is not just a technical metric — it's a business metric. A 100ms delay in page load can cost a meaningful percentage of conversions. A janky 15fps scroll animation erodes user trust. Performance is the silent feature that every user experiences but only notices when it's bad.</p>
+  <p>Over the years I've shipped performant (and occasionally slow, then optimized) web applications. Here's a distillation of the most impactful performance techniques every front-end developer should have in their toolkit.</p>
+
+  <h2>1. Bundle Size — Your First Line of Defense</h2>
+  <p>The single most impactful optimization you can make is sending less JavaScript. Every kilobyte of JS must be downloaded, parsed, compiled, and executed. On a mid-range mobile device on 3G, that's expensive.</p>
+
+  <h3>Tree-Shaking</h3>
+  <p>Modern bundlers like Webpack and Rollup can eliminate dead code through tree-shaking — but only if you're using ES module syntax (import/export). A common mistake is importing an entire library when you only need one function. Instead of importing the entire Lodash library, import only the specific function you need. The difference can be hundreds of kilobytes.</p>
+
+  <h3>Code Splitting</h3>
+  <p>Don't ship all your JavaScript in one bundle. Use dynamic imports to split your code at route or feature boundaries. Users loading your landing page shouldn't need to download code for the settings page they may never visit. React.lazy() and dynamic import() make this elegant and straightforward.</p>
+
+  <blockquote>
+    "The fastest code is the code that never runs. The second fastest is code you never load."
+  </blockquote>
+
+  <h2>2. Lazy Loading — Defer What Users Don't See</h2>
+  <p>Images are typically the largest resources on any page. By default, browsers load all images regardless of whether they're visible. With the native loading="lazy" attribute, off-screen images load only when they're about to enter the viewport — often reducing initial page load by 30-60% for image-heavy sites.</p>
+  <p>Apply the same principle to components and data. Intersection Observer makes it easy to implement custom lazy loading: load heavy chart libraries, maps, or video players only when their containers scroll into view.</p>
+
+  <h3>Preloading Critical Resources</h3>
+  <p>While lazy loading defers non-critical resources, preloading ensures critical ones — your hero font, the above-the-fold image, key JavaScript chunks — arrive as early as possible. Use <strong>&lt;link rel="preload"&gt;</strong> for resources discovered late in the parsing process.</p>
+
+  <h2>3. Rendering Performance — Keeping Frames Smooth</h2>
+  <p>A smooth UI means 60 frames per second — which gives you just 16ms per frame to do all your work. Most jank comes from expensive operations happening in that frame budget.</p>
+
+  <h3>Avoid Layout Thrashing</h3>
+  <p>Reading a layout property (like offsetWidth) forces the browser to calculate layout immediately, even if it was going to batch that work. If you then modify a layout property and read again, you create a cycle called layout thrashing that can drop you to 5fps. Batch your reads separately from your writes, or use requestAnimationFrame to schedule writes to the next frame.</p>
+
+  <h3>CSS Animations vs JavaScript Animations</h3>
+  <p>Prefer CSS transitions and animations for visual effects. The browser can often offload opacity and transform animations to the GPU compositor thread, meaning they run even when the main JavaScript thread is busy. JavaScript-driven animations that modify layout properties are far more expensive. When you do need JS animations, use the Web Animations API or requestAnimationFrame — never setInterval.</p>
+
+  <h2>4. Memory Management</h2>
+  <p>Memory leaks in single-page applications are a common cause of degraded performance over time. Users leave your app open for hours — and if your app leaks memory, it will slow down or crash. The most common leak sources are event listeners that aren't removed when components unmount, closures that hold references to large DOM structures, and global state that accumulates but never gets cleaned up.</p>
+
+  <h3>Using Chrome DevTools</h3>
+  <p>The Memory panel in Chrome DevTools is invaluable. Take a heap snapshot, perform the suspected leaky action, take another snapshot, and compare. The retained objects between snapshots indicate what's accumulating. The Performance Monitor panel shows live memory usage so you can watch for upward trends during user interactions.</p>
+
+  <h2>5. Network Optimization</h2>
+  <p>JavaScript is only one part of the performance story. Caching strategies, HTTP/2 server push, service workers for offline support, and CDN distribution all dramatically affect how quickly your assets reach users. Implement a caching strategy that gives static assets long cache lifetimes with content-hash filenames, while keeping HTML responses short-lived so updates deploy immediately.</p>
+
+  <h3>Measuring What Matters</h3>
+  <p>Don't optimize blindly. Use Lighthouse to identify your biggest opportunities, Core Web Vitals (LCP, FID/INP, CLS) as your primary metrics, and real user monitoring (RUM) to understand performance in the field — not just in the lab. Lab metrics can look great while real users on slow devices in rural areas have a terrible experience.</p>
+
+  <h2>Conclusion</h2>
+  <p>Performance optimization is a continuous practice, not a one-time task. Start with the high-impact wins: reduce bundle size through tree-shaking and code splitting, lazy load resources not needed immediately, and keep your rendering pipeline smooth. Then measure regularly — both in lab conditions and with real user data — to catch regressions before they reach production.</p>
+  <p>Remember: your users are not on your MacBook Pro with a 1Gbps connection. They're on mid-range Androids, on mobile networks, in the middle of their day. Build for them, not for your developer machine.</p>
+
+  <div class="blog-cta">
+    <p style="color:var(--text-muted);margin-bottom:20px;">Want to discuss performance strategies or have a project that needs optimization?</p>
+    <a href="blog.html" class="btn btn-outline">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M7 16l-4-4m0 0l4-4m-4 4h18"/></svg>
+      Back to Blog
+    </a>
+  </div>
+
+</article>
+
+</main>
+
+<footer role="contentinfo">
+  <div class="container">
+    <div class="footer-inner">
+      <div>
+        <a href="index.html" class="footer-logo" aria-label="Charles Antonio Home">
+          <img src="images/logo.png" alt="Charles Antonio Logo" />
+          <span class="footer-logo-text">Charles Antonio</span>
+        </a>
+        <p class="footer-desc">Front-End Developer crafting polished, performant, and accessible web experiences.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Projects</h4>
+        <ul class="footer-links">
+          <li><a href="https://crookieco.netlify.app/">CrookieCo.</a></li>
+          <li><a href="https://lockhub.ct.ws">Lockhub</a></li>
+          <li><a href="https://techcorepcshop.netlify.app">TechCore PC Shop</a></li>
+          <li><a href="https://vibescity.netlify.app">Vibes City</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <ul class="footer-links">
+          <li><a href="https://www.linkedin.com/in/charles-antonio-185a56316/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://github.com/Charoless" target="_blank" rel="noopener">GitHub</a></li>
+          <li><a href="tel:+639434741424" target="_blank" rel="noopener">Phone</a></li>
+          <li><a href="mailto:chrlsjsphantnio@gmail.com">Email Me</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; 2025 <span>Charles Antonio</span>. All rights reserved.</p>
+      <div style="display:flex;gap:12px;">
+        <a href="https://www.linkedin.com/in/charles-antonio-185a56316/" target="_blank" rel="noopener" class="social-link" aria-label="LinkedIn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </a>
+        <a href="https://github.com/Charoless" target="_blank" rel="noopener" class="social-link" aria-label="GitHub">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+        </a>
+        <a href="tel:+639434741424" target="_blank" rel="noopener" class="social-link" aria-label="Phone">
+  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+    <path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.11-.21c1.21.48 2.53.74 3.88.74a1 1 0 011 1v3.5a1 1 0 01-1 1C10.07 22 2 13.93 2 4.5a1 1 0 011-1H6.5a1 1 0 011 1c0 1.35.26 2.67.74 3.88a1 1 0 01-.21 1.11l-2.2 2.2z"/>
+  </svg>
+</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<button class="back-to-top" aria-label="Back to top">
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/></svg>
+</button>
+
+<script src="js/script.js"></script>
+</body>
+</html>

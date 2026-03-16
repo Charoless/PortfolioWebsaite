@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Art of CSS Architecture | Charles Antonio Blog</title>
+  <meta name="description" content="Discover how to structure your CSS for large-scale projects using BEM, CSS Modules, and utility-first approaches. A deep-dive into scalable style systems." />
+  <meta name="keywords" content="CSS architecture, BEM, CSS Modules, Tailwind CSS, scalable CSS, front-end development" />
+  <meta property="og:title" content="The Art of CSS Architecture — Writing Styles That Scale | Charles Antonio" />
+  <meta property="og:description" content="Learn how to structure your CSS for large, maintainable codebases." />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="images/blog1.jpg" />
+  <link rel="icon" href="images/logo.png" type="image/jpeg" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<!-- Reading Progress Bar -->
+<div class="reading-progress" role="progressbar" aria-label="Reading progress" aria-valuemin="0" aria-valuemax="100"></div>
+
+<header id="navbar" role="banner">
+  <div class="container nav-inner">
+    <a href="index.html" class="nav-logo" aria-label="Charles Antonio Home">
+      <img src="images/logo.png" alt="Charles Antonio Logo" />
+      <span class="nav-logo-text">Charles Antonio</span>
+    </a>
+    <nav aria-label="Main navigation">
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="blog.html" class="active">Blog</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="nav-actions">
+      <button class="theme-toggle" aria-label="Toggle dark/light mode">
+        <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path stroke-linecap="round" d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+      <a href="contact.html" class="btn btn-primary">Hire Me</a>
+      <button class="hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<nav class="mobile-nav" aria-label="Mobile navigation">
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="projects.html">Projects</a>
+  <a href="blog.html">Blog</a>
+  <a href="contact.html">Contact</a>
+</nav>
+
+<main id="main">
+
+<!-- Blog Hero -->
+<div class="blog-hero reveal">
+  <div class="container">
+    <div class="img-placeholder blog-hero-img" style="background:linear-gradient(135deg,#0d1a2e 0%,#1a2a4a 50%,#0a1220 100%);font-size:6rem;" aria-hidden="true" role="img" aria-label="CSS Architecture blog header"><img src="images/blog1.png"></div>
+    <div class="blog-meta" aria-label="Article metadata">
+      <span class="tag">CSS</span>
+      <span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+        Charles Antonio
+      </span>
+      <span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        January 15, 2025
+      </span>
+      <span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        8 min read
+      </span>
+    </div>
+    <h1 class="blog-title">The Art of CSS Architecture — Writing Styles That Scale</h1>
+  </div>
+</div>
+
+<!-- Article Content -->
+<article class="blog-article reveal">
+
+  <p>CSS is deceptively simple. You can pick it up in an afternoon, but mastering it — especially at scale — takes years of painful refactoring, specificity wars, and cascading nightmares. After working on large codebases with dozens of developers, I've learned that good CSS architecture isn't a luxury; it's a survival strategy.</p>
+
+  <h2>Why CSS Architecture Matters</h2>
+  <p>In small projects, CSS is manageable. One file, a few hundred lines — everything in your head. But scale that to a team of 10 developers working on a 50,000-line app, and suddenly you have styles bleeding across components, !important declarations everywhere, and a deployment where changing one color breaks three unrelated pages.</p>
+  <p>Good architecture prevents this. It gives your stylesheet a spine — clear conventions that every developer can follow, so the codebase grows gracefully rather than collapsing under its own weight.</p>
+
+  <blockquote>
+    "CSS is easy to write but hard to maintain. Architecture is the discipline that bridges the gap."
+  </blockquote>
+
+  <h2>The Major Approaches</h2>
+
+  <h3>1. BEM (Block Element Modifier)</h3>
+  <p>BEM is a naming convention that makes your CSS self-documenting. Instead of vague class names like <strong>.red-button</strong> or <strong>.thing</strong>, you write descriptive, hierarchical names:</p>
+  <ul>
+    <li><strong>.card</strong> — the Block (a standalone component)</li>
+    <li><strong>.card__title</strong> — the Element (a part of the block)</li>
+    <li><strong>.card--featured</strong> — the Modifier (a variant of the block)</li>
+  </ul>
+  <p>BEM's biggest strength is predictability. A new developer can look at a class name and immediately understand where it lives in the component hierarchy. The downside is verbosity — class names get long — but the tradeoff is worth it on large teams.</p>
+
+  <h3>2. CSS Modules</h3>
+  <p>CSS Modules solve the global scope problem by scoping class names locally to the component that imports them. Your <strong>.button</strong> in <em>Button.module.css</em> won't collide with a <strong>.button</strong> in <em>Navbar.module.css</em> because the build tool transforms them into unique identifiers at compile time.</p>
+  <p>This approach pairs beautifully with React and other component-based frameworks. Each component owns its styles completely, making refactoring safe and predictable.</p>
+
+  <h3>3. Utility-First with Tailwind CSS</h3>
+  <p>Tailwind flips the entire model. Rather than writing custom CSS, you apply pre-defined utility classes directly in your HTML: <strong>flex gap-4 rounded-lg bg-slate-900 p-6</strong>. This feels wrong at first — it looks like inline styles. But in practice it's remarkably fast and produces consistent UIs because you're always working within a predefined design system.</p>
+  <p>The real power of Tailwind is its constraint-based design. When every developer is pulling from the same spacing, color, and typography scales, the UI naturally stays consistent without a design review for every new component.</p>
+
+  <h2>CSS Custom Properties — The Modern Secret Weapon</h2>
+  <p>Regardless of which methodology you choose, CSS custom properties (variables) should be the backbone of your design system. They allow you to encode your design decisions directly into the stylesheet:</p>
+  <ul>
+    <li>Spacing scales (--space-1, --space-2, etc.)</li>
+    <li>Color palettes with semantic naming (--color-primary, --color-surface)</li>
+    <li>Typography tokens (--font-heading, --font-size-lg)</li>
+    <li>Dark mode implementations via a single class toggle</li>
+  </ul>
+  <p>Unlike preprocessor variables, CSS custom properties are dynamic — they can be updated at runtime via JavaScript and cascade through the DOM like any other property. This makes implementing theme switching, responsive type scales, and component-level overrides elegant and efficient.</p>
+
+  <h2>Organizational Strategies</h2>
+  <p>Beyond naming, physical organization matters. A folder structure I've found works well at scale separates concerns clearly: base styles (reset, typography), tokens (custom properties), layout primitives, components, utilities, and page-specific overrides. Each layer builds on the previous one, and the specificity naturally increases as you move down — avoiding unnecessary !important usage.</p>
+
+  <h3>The Cascade Is Not Your Enemy</h3>
+  <p>Many developers fight the cascade when they should be working with it. The key insight is that specificity should reflect the logical structure of your application: global defaults have low specificity, reusable components have medium specificity, and page-specific overrides have the highest. When you design your architecture with this mental model, the cascade becomes a feature, not a bug.</p>
+
+  <h2>Conclusion</h2>
+  <p>CSS architecture isn't about picking the "correct" methodology — BEM, CSS Modules, and utility-first are all valid depending on your context. It's about having a system, any coherent system, that your team understands and follows consistently. The worst CSS architecture is no architecture at all, where everyone writes styles however they feel that day.</p>
+  <p>Start with CSS custom properties to encode your design tokens. Choose a naming convention that fits your team size and mental model. Keep your specificity under control. And refactor early — messy CSS is much harder to fix when it's 50,000 lines deep.</p>
+
+  <div class="blog-cta">
+    <p style="color:var(--text-muted);margin-bottom:20px;">Found this useful? Have thoughts on your preferred CSS approach?</p>
+    <a href="blog.html" class="btn btn-outline">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M7 16l-4-4m0 0l4-4m-4 4h18"/></svg>
+      Back to Blog
+    </a>
+  </div>
+
+</article>
+
+</main>
+
+<footer role="contentinfo">
+  <div class="container">
+    <div class="footer-inner">
+      <div>
+        <a href="index.html" class="footer-logo" aria-label="Charles Antonio Home">
+          <img src="images/logo.png" alt="Charles Antonio Logo" />
+          <span class="footer-logo-text">Charles Antonio</span>
+        </a>
+        <p class="footer-desc">Front-End Developer crafting polished, performant, and accessible web experiences.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Projects</h4>
+        <ul class="footer-links">
+          <li><a href="https://crookieco.netlify.app/">CrookieCo.</a></li>
+          <li><a href="https://lockhub.ct.ws">Lockhub</a></li>
+          <li><a href="https://techcorepcshop.netlify.app">TechCore PC Shop</a></li>
+          <li><a href="https://vibescity.netlify.app">Vibes City</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <ul class="footer-links">
+          <li><a href="https://www.linkedin.com/in/charles-antonio-185a56316/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://github.com/Charoless" target="_blank" rel="noopener">GitHub</a></li>
+          <li><a href="tel:+639434741424" target="_blank" rel="noopener">Phone</a></li>
+          <li><a href="mailto:chrlsjsphantnio@gmail.com">Email Me</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; 2025 <span>Charles Antonio</span>. All rights reserved.</p>
+      <div style="display:flex;gap:12px;">
+        <a href="https://www.linkedin.com/in/charles-antonio-185a56316/" target="_blank" rel="noopener" class="social-link" aria-label="LinkedIn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </a>
+        <a href="https://github.com/Charoless" target="_blank" rel="noopener" class="social-link" aria-label="GitHub">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+        </a>
+        <a href="tel:+639434741424" target="_blank" rel="noopener" class="social-link" aria-label="Phone">
+  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+    <path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.11-.21c1.21.48 2.53.74 3.88.74a1 1 0 011 1v3.5a1 1 0 01-1 1C10.07 22 2 13.93 2 4.5a1 1 0 011-1H6.5a1 1 0 011 1c0 1.35.26 2.67.74 3.88a1 1 0 01-.21 1.11l-2.2 2.2z"/>
+  </svg>
+</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<button class="back-to-top" aria-label="Back to top">
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/></svg>
+</button>
+
+<script src="js/script.js"></script>
+</body>
+</html>
